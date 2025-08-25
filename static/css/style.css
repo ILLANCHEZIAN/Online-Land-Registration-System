@@ -1,0 +1,192 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, #6e8efb 0%, #a777e3 100%);
+  background-size: 200% 200%;
+  animation: gradientPulse 8s ease infinite;
+  color: white;
+  padding: 4rem 1rem;
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+  isolation: isolate;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 75% 25%, 
+              rgba(255,255,255,0.15) 0%, 
+              transparent 50%);
+  z-index: -1;
+}
+
+@keyframes gradientPulse {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/*Div*/
+.card {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: none;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card:nth-child(1):hover {
+  background: linear-gradient(145deg, #e75651, #b793e4);
+  color: white;
+}
+
+.card:nth-child(2):hover {
+  background: linear-gradient(145deg, #4facfe, #00f2fe);
+  color: white;
+}
+
+.card:nth-child(3):hover {
+  background: linear-gradient(145deg, #43e97b, #38f9d7);
+  color: white;
+}
+
+.card:hover .card-title {
+  transform: scale(1.05);
+}
+
+.card:hover .card-text {
+  opacity: 0.9;
+}
+
+.navbar {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.form-control, .form-select {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.alert {
+    border-radius: 8px;
+}
+
+.badge {
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+
+/* Slideshow container */
+.slideshow-container {
+    position: relative;
+    max-width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Hide all slides by default */
+.slide {
+    display: none;
+    animation: fade 1.5s ease;
+}
+
+/* Slide images */
+.slide img {
+    width: 100%;
+    vertical-align: middle;
+}
+
+/* Caption text */
+.slideshow-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.5);
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    background-color: rgba(0,0,0,0.3);
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color */
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+    background-color: #717171;
+}
+
+/* Fade animation */
+@keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}

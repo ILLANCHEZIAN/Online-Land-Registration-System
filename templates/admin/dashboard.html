@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-4">Admin Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Register Land</h5>
+                <p class="card-text">Add new land records to the blockchain registry</p>
+                <a href="{{ url_for('register_land') }}" class="btn btn-primary">Go to Registration</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Register User</h5>
+                <p class="card-text">Register new users to the system</p>
+                <a href="{{ url_for('register_user') }}" class="btn btn-success">Register User</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">View Records</h5>
+                <p class="card-text">View all land records in the system</p>
+                <a href="{{ url_for('view_records') }}" class="btn btn-info">View Records</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Transfer Land</h5>
+                <p class="card-text">Transfer land ownership between users</p>
+                <a href="{{ url_for('transfer_land') }}" class="btn btn-warning">Transfer Land</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">System Statistics</h5>
+                <p class="card-text">
+                    <strong>{{ lands_db|length }}</strong> Lands Registered<br>
+                    <strong>{{ users_db|length }}</strong> Users Registered
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4 mb-4">
+    <div class="card h-100">
+        <div class="card-body text-center">
+            <h5 class="card-title">Government Approval</h5>
+            <p class="card-text">Approve or reject users' land registrations</p>
+            <a href="{{ url_for('government_approval') }}" class="btn btn-primary">Go to Government Approval</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

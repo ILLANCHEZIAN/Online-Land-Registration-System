@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-body">
+        <h2 class="card-title mb-4">Transfer Land Ownership</h2>
+        <form method="POST" action="{{ url_for('transfer_land') }}">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="land_id" class="form-label">Select Land</label>
+                    <select class="form-select" id="land_id" name="land_id" required>
+                        <option value="" selected disabled>Select Land</option>
+                        {% for land in lands.values() %}
+                            <option value="{{ land.id }}">ID: {{ land.id }} - {{ land.location }} (Owner: {{ land.owner_name }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="new_aadhaar" class="form-label">New Owner Aadhaar</label>
+                    <input type="text" class="form-control" id="new_aadhaar" name="new_aadhaar" required>
+                </div>
+            </div>
+            
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-warning">Transfer Ownership</button>
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

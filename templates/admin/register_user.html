@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-body">
+        <h2 class="card-title mb-4">Register New User</h2>
+        <form method="POST" action="{{ url_for('register_user') }}" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="aadhaar" class="form-label">Aadhaar Number</label>
+                    <input type="text" class="form-control" id="aadhaar" name="aadhaar" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+            </div>
+            
+            <div class="mb-3">
+                <label for="photo" class="form-label">Photo</label>
+                <input class="form-control" type="file" id="photo" name="photo" accept="image/*" required>
+            </div>
+            
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-success">Register User</button>
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+        <hr>
+        <h4>Government Approval Status</h4>
+        <p>
+            {% if user.gov_approval == 'pending' %}
+                <span class="badge bg-warning text-dark">Pending</span>
+            {% elif user.gov_approval == 'approved' %}
+                <span class="badge bg-success">Approved</span>
+            {% elif user.gov_approval == 'rejected' %}
+                <span class="badge bg-danger">Rejected</span>
+            {% else %}
+                <span class="badge bg-secondary">Unknown</span>
+            {% endif %}
+        </p>
+    </div>
+</div>
+{% endblock %}

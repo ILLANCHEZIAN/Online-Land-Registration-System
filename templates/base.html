@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Land Registry System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Land Registry</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if session.get('admin_logged_in') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('admin_logout') }}">Logout</a>
+                        </li>
+                    {% elif session.get('user_aadhaar') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('user_dashboard') }}">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('user_logout') }}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('admin_login') }}">Admin Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('user_login') }}">User Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+
+    <!--Footer-->
+    <footer class="footer bg-dark text-white pt-5 pb-4">
+    <div class="container">
+        <div class="row">
+            <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="small mb-0"><b>© 2025 Blockchain Land Registry System. All rights reserved.</b></p>
+            </div>
+        </div>
+        <hr class="mb-4">
+            <!-- About Section -->
+            <div class="col-lg-4 mb-4">
+                <h5 class="text-uppercase mb-4">Blockchain Land Registry</h5>
+                <p class="small">A secure, transparent land registration system leveraging blockchain technology to prevent fraud and ensure immutable property records.</p>
+                <div class="mt-3">
+                    <a href="#" class="text-white me-2"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="#" class="text-white me-2"><i class="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="#" class="text-white me-2"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                    <a href="#" class="text-white me-2"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-github fa-lg"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-lg-2 col-md-6 mb-4">
+                <h5 class="text-uppercase mb-4">Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="/dashboard" class="text-white text-decoration-none">Dashboard</a></li>
+                    <li class="mb-2"><a href="/search" class="text-white text-decoration-none">Search Records</a></li>
+                    <li class="mb-2"><a href="/faq" class="text-white text-decoration-none">FAQs</a></li>
+                    <li class="mb-2"><a href="/api-docs" class="text-white text-decoration-none">API Documentation</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal -->
+            <div class="col-lg-2 col-md-6 mb-4">
+                <h5 class="text-uppercase mb-4">Legal</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="/privacy" class="text-white text-decoration-none">Privacy Policy</a></li>
+                    <li class="mb-2"><a href="/terms" class="text-white text-decoration-none">Terms of Service</a></li>
+                    <li class="mb-2"><a href="/cookies" class="text-white text-decoration-none">Cookie Policy</a></li>
+                    <li class="mb-2"><a href="/disclaimer" class="text-white text-decoration-none">Disclaimer</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="col-lg-4 mb-4">
+                <h5 class="text-uppercase mb-4">Contact Us</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-3 d-flex">
+                        <i class="fas fa-map-marker-alt me-3 mt-1"></i>
+                        <span>Blockchain Tower, Tech Park, Tamil Nadu, India</span>
+                    </li>
+                    <li class="mb-3 d-flex">
+                        <i class="fas fa-phone me-3 mt-1"></i>
+                        <div>
+                            <span>+91 94516 27420</span><br>
+                            <small class="text-muted">Mon-Fri, 9AM-6PM</small>
+                        </div>
+                    </li>
+                    <li class="mb-3 d-flex">
+                        <i class="fas fa-envelope me-3 mt-1"></i>
+                        <span>contact@landregistry.com</span>
+                    </li>
+                    <li>
+                        <button class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#contactModal">
+                            <i class="fas fa-paper-plane me-2"></i>Send Message
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        
+    </div>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="btn btn-primary btn-floating position-fixed bottom-0 end-0 m-4 rounded-circle" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</footer>
+
+<!-- Contact Modal -->
+<div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark text-white">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">Contact Our Team</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Your Email</label>
+                        <input type="email" class="form-control bg-secondary border-0 text-white" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Subject</label>
+                        <select class="form-select bg-secondary border-0 text-white">
+                            <option>General Inquiry</option>
+                            <option>Technical Support</option>
+                            <option>Partnership</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-control bg-secondary border-0 text-white" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for enhanced functionality -->
+<script>
+// Back to top button
+document.getElementById('back-to-top').addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({top: 0, behavior: 'smooth'});
+});
+
+// Show/hide back to top button based on scroll position
+window.addEventListener('scroll', () => {
+    const backToTop = document.getElementById('back-to-top');
+    if (window.scrollY > 300) {
+        backToTop.style.opacity = '1';
+        backToTop.style.visibility = 'visible';
+    } else {
+        backToTop.style.opacity = '0';
+        backToTop.style.visibility = 'hidden';
+    }
+});
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

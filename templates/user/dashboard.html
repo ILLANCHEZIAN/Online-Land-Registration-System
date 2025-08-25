@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <img src="{{ url_for('static', filename='images/' + user.photo) }}" 
+                     alt="User photo" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                <h4>{{ user.name }}</h4>
+                <p class="text-muted">{{ user.aadhaar }}</p>
+                <p>{{ user.address }}</p>
+                <p><i class="bi bi-envelope"></i> {{ user.email }}<br>
+                <i class="bi bi-telephone"></i> {{ user.phone }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <h3 class="mb-4">Your Land Properties</h3>
+        
+        {% if lands %}
+            <div class="row">
+                {% for land in lands %}
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ url_for('static', filename='images/' + land.image) }}" 
+                             class="card-img-top" alt="Land image" style="height: 180px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ land.location }}</h5>
+                            <p class="card-text">
+                                <strong>Area:</strong> {{ land.area }} sq ft<br>
+                                <strong>Price:</strong> ₹{{ land.price }}<br>
+                                <strong>Registered:</strong> {{ land.timestamp }}
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            {% if land.action == 'accepted' %}
+                                <span class="badge bg-success">Accepted</span>
+                            {% elif land.action == 'rejected' %}
+                                <span class="badge bg-danger">Rejected</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark">Pending Verification</span>
+                            {% endif %}
+                            <br>
+                            {% if land.gov_approval == 'approved' %}
+                                <span class="badge bg-success">Gov Approved</span>
+                            {% elif land.gov_approval == 'rejected' %}
+                                <span class="badge bg-danger">Gov Rejected</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark">Gov Pending</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                You don't have any registered lands yet.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

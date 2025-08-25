@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-4">Land Records</h2>
+
+<div class="card shadow">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Owner</th>
+                        <th>Location</th>
+                        <th>Area</th>
+                        <th>Price</th>
+                        <th>Image</th>
+                        <th>Registered On</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                        <th>Gov Approval</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for land in lands.values() %}
+                    <tr>
+                        <td>{{ land.id }}</td>
+                        <td>{{ land.owner_name }}</td>
+                        <td>{{ land.location }}</td>
+                        <td>{{ land.area }} sq ft</td>
+                        <td>₹{{ land.price }}</td>
+                        <td>
+                            <img src="{{ url_for('static', filename='images/' + land.image) }}" 
+                                 alt="Land image" style="width: 80px; height: 60px; object-fit: cover;">
+                        </td>
+                        <td>{{ land.timestamp }}</td>
+                        <td>
+                            {% if land.verified %}
+                                <span class="badge bg-success">Verified</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if land.action == 'pending' %}
+                                <a href="{{ url_for('accept_land', land_id=land.id) }}" class="btn btn-sm btn-success">Accept</a>
+                                <a href="{{ url_for('reject_land', land_id=land.id) }}" class="btn btn-sm btn-danger">Reject</a>
+                            {% elif land.action == 'accepted' %}
+                                <span class="badge bg-success">Accepted</span>
+                            {% elif land.action == 'rejected' %}
+                                <span class="badge bg-danger">Rejected</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Unknown</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if land.gov_approval == 'pending' %}
+                                <a href="{{ url_for('gov_approve_land', land_id=land.id) }}" class="btn btn-sm btn-success">Gov Approve</a>
+                                <a href="{{ url_for('gov_reject_land', land_id=land.id) }}" class="btn btn-sm btn-danger">Gov Reject</a>
+                            {% elif land.gov_approval == 'approved' %}
+                                <span class="badge bg-success">Gov Approved</span>
+                            {% elif land.gov_approval == 'rejected' %}
+                                <span class="badge bg-danger">Gov Rejected</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Unknown</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
